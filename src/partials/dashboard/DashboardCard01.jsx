@@ -3,24 +3,38 @@ import { Line } from 'react-chartjs-2';
 
 function DashboardCard01() {
   const [monthlyData, setMonthlyData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:8000/api/monthly_reports/monthly_reports/');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         const data = await response.json();
-        // console.log('Monthly Data:', data);
         setMonthlyData(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        setError(error.message || 'Error fetching data');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>; // You can replace this with a loading indicator component
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>; // Render an error message if fetching data fails
+  }
+
   if (monthlyData.length === 0) {
-    return null; // or render a loading indicator
+    return <div>No data available</div>; // Handle the case when there is no data
   }
 
   const chartData = {
@@ -35,15 +49,15 @@ function DashboardCard01() {
       },
       {
         label: 'Общая сумма',
-        data: monthlyData.map(item => item.total_amount_kzt), // replace with the actual data property
-        borderColor: 'rgb(45, 147, 204, 60%)', // gray color
+        data: monthlyData.map(item => item.total_amount_kzt),
+        borderColor: 'rgb(45, 147, 204, 60%)',
         borderWidth: 2,
         fill: false,
       },
       {
         label: 'Объем в кВ',
-        data: monthlyData.map(item => item.volume_kWh), // replace with the actual data property
-        borderColor: 'rgb(45, 147, 204, 60%)', // gray color
+        data: monthlyData.map(item => item.volume_kWh),
+        borderColor: 'rgb(45, 147, 204, 60%)',
         borderWidth: 2,
         fill: false,
       },
