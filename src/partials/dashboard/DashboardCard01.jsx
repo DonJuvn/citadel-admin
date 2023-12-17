@@ -9,11 +9,7 @@ function DashboardCard01() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-<<<<<<< HEAD
-        const response = await fetch('http://localhost:8000/api/monthly_reports/monthly_reports/');
-=======
         const response = await fetch('http://127.0.0.1:8000/api/monthly_reports/monthly_reports/');
->>>>>>> ec90c6d0c0f3beace607f0c76b5a943d50adee93
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
