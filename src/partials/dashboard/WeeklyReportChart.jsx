@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
-function DashboardCard01() {
+import moment from 'moment';
+
+function WeeklyReportChart() {
   const [monthlyData, setMonthlyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -9,7 +11,7 @@ function DashboardCard01() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/monthly_reports/monthly_reports/');
+        const response = await fetch('http://127.0.0.1:8000/api/weekly_reports/weekly_reports/');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -38,35 +40,53 @@ function DashboardCard01() {
   }
 
   const chartData = {
-    labels: monthlyData.map(item => item.month),
+    // labels: monthlyData.map(item => item.start_date),
+    labels: monthlyData.map(item => moment(item.start_date).format('DD MMM YYYY')),
     datasets: [
       {
         label: 'Объем сделок',
-        data: monthlyData.map(item => item.deal_volume),
+        data: monthlyData.map(item => item.total_volume_miners),
         borderColor: '#2368d6',
         borderWidth: 2,
         fill: false,
-        borderRadius: 10, // Set border radius for this dataset
       },
       {
         label: 'Общая сумма',
-        data: monthlyData.map(item => item.total_amount_kzt),
+        data: monthlyData.map(item => item.total_volume_energy_producers),
         borderColor: 'rgb(45, 147, 204, 60%)',
         borderWidth: 2,
         fill: false,
-        borderRadius: 10, // Set border radius for this dataset
       },
       {
         label: 'Объем в кВ',
-        data: monthlyData.map(item => item.volume_kWh),
+        data: monthlyData.map(item => item.min_miners),
         borderColor: 'rgb(45, 147, 204, 60%)',
         borderWidth: 2,
         fill: false,
-        borderRadius: 10, // Set border radius for this dataset
+      },
+      {
+        label: 'Объем в кВ',
+        data: monthlyData.map(item => item.max_miners),
+        borderColor: 'rgb(45, 147, 204, 60%)',
+        borderWidth: 2,
+        fill: false,
+      },
+      {
+        label: 'Объем в кВ',
+        data: monthlyData.map(item => item.min_energy_producers),
+        borderColor: 'rgb(45, 147, 204, 60%)',
+        borderWidth: 2,
+        fill: false,
+      },
+      {
+        label: 'Объем в кВ',
+        data: monthlyData.map(item => item.max_energy_producers),
+        borderColor: 'rgb(45, 147, 204, 60%)',
+        borderWidth: 2,
+        fill: false,
       },
     ],
   };
-  
 
   return (
     <div>
@@ -75,47 +95,30 @@ function DashboardCard01() {
         options={{
           scales: {
             x: {
-              // type: 'time',
+              type: 'time',
               time: {
-                unit: 'month',
+                unit: 'day',
                 displayFormats: {
-                  month: 'MMM YYYY',
+                  day: 'DD MMM YYYY',
                 },
               },
               title: {
                 display: true,
-                text: 'Month',
-                color: '#2368d6',
-                fontSize: 16 ,
+                text: 'Week',
               },
-              grid: {
-                display: false, // Set to false to remove background gray lines
-              },
-              // ticks: {
-              //   color: '#EABE5C', // Set text color for the x-axis labels
-              // },
             },
             y: {
               beginAtZero: true,
               title: {
                 display: true,
-                text: 'Объем сделок',
-                // color: '#2368d6'
-              },
-              grid: {
-                display: false, // Set to false to remove background gray lines
-              },
-              ticks: {
-                color: '#2368d6', // Set text color for the x-axis labels
+                text: '',
               },
             },
           },
         }}
-        width={1000}
-        height={800}
       />
     </div>
   );
 }
 
-export default DashboardCard01;
+export default WeeklyReportChart;

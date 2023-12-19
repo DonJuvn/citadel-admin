@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
-function DashboardCard01() {
+function DailyReportChart() {
   const [monthlyData, setMonthlyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -9,7 +9,7 @@ function DashboardCard01() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/monthly_reports/monthly_reports/');
+        const response = await fetch('http://127.0.0.1:8000/api/daily_reports/daily_reports/');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -38,79 +38,61 @@ function DashboardCard01() {
   }
 
   const chartData = {
-    labels: monthlyData.map(item => item.month),
+    labels: monthlyData.map(item => item.date),
     datasets: [
       {
         label: 'Объем сделок',
-        data: monthlyData.map(item => item.deal_volume),
+        data: monthlyData.map(item => item.demand_volume),
         borderColor: '#2368d6',
         borderWidth: 2,
         fill: false,
-        borderRadius: 10, // Set border radius for this dataset
       },
       {
         label: 'Общая сумма',
-        data: monthlyData.map(item => item.total_amount_kzt),
+        data: monthlyData.map(item => item.seller_offer),
         borderColor: 'rgb(45, 147, 204, 60%)',
         borderWidth: 2,
         fill: false,
-        borderRadius: 10, // Set border radius for this dataset
       },
       {
         label: 'Объем в кВ',
-        data: monthlyData.map(item => item.volume_kWh),
+        data: monthlyData.map(item => item.unsatisfied_demand),
         borderColor: 'rgb(45, 147, 204, 60%)',
         borderWidth: 2,
         fill: false,
-        borderRadius: 10, // Set border radius for this dataset
       },
     ],
   };
-  
 
   return (
-    <div>
+    <div className=''>
       <Line
         data={chartData}
         options={{
           scales: {
             x: {
-              // type: 'time',
+              type: 'time',
               time: {
-                unit: 'month',
+                unit: 'day',
                 displayFormats: {
-                  month: 'MMM YYYY',
+                  day: 'DD MMM',
                 },
               },
               title: {
                 display: true,
-                text: 'Month',
-                color: '#2368d6',
-                fontSize: 16 ,
+                text: 'Day',
               },
-              grid: {
-                display: false, // Set to false to remove background gray lines
-              },
-              // ticks: {
-              //   color: '#EABE5C', // Set text color for the x-axis labels
-              // },
             },
             y: {
               beginAtZero: true,
               title: {
                 display: true,
-                text: 'Объем сделок',
-                // color: '#2368d6'
-              },
-              grid: {
-                display: false, // Set to false to remove background gray lines
-              },
-              ticks: {
-                color: '#2368d6', // Set text color for the x-axis labels
+                text: '',
               },
             },
           },
         }}
+        
         width={1000}
         height={800}
       />
@@ -118,4 +100,4 @@ function DashboardCard01() {
   );
 }
 
-export default DashboardCard01;
+export default DailyReportChart;
