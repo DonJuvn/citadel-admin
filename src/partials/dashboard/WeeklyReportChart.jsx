@@ -4,19 +4,19 @@ import { Line } from 'react-chartjs-2';
 import moment from 'moment';
 
 function WeeklyReportChart() {
-  const [monthlyData, setMonthlyData] = useState([]);
+  const [weeklyData, setWeeklyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/weekly_reports/weekly_reports/');
+        const response = await fetch('http://localhost:8000/api/weekly-reports/weekly-reports/');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        setMonthlyData(data);
+        setWeeklyData(data);
       } catch (error) {
         setError(error.message || 'Error fetching data');
       } finally {
@@ -35,52 +35,52 @@ function WeeklyReportChart() {
     return <div>Error: {error}</div>; // Render an error message if fetching data fails
   }
 
-  if (monthlyData.length === 0) {
+  if (weeklyData.length === 0) {
     return <div>No data available</div>; // Handle the case when there is no data
   }
 
   const chartData = {
-    // labels: monthlyData.map(item => item.start_date),
-    labels: monthlyData.map(item => moment(item.start_date).format('DD MMM YYYY')),
+    // labels: weeklyData.map(item => item.start_date),
+    labels: weeklyData.map(item => moment(item.start_date).format('DD MMM YYYY')),
     datasets: [
       {
         label: 'Объем сделок',
-        data: monthlyData.map(item => item.total_volume_miners),
+        data: weeklyData.map(item => item.total_volume_miners),
         borderColor: '#2368d6',
         borderWidth: 2,
         fill: false,
       },
       {
         label: 'Общая сумма',
-        data: monthlyData.map(item => item.total_volume_energy_producers),
+        data: weeklyData.map(item => item.total_volume_energy_producers),
         borderColor: 'rgb(45, 147, 204, 60%)',
         borderWidth: 2,
         fill: false,
       },
       {
         label: 'Объем в кВ',
-        data: monthlyData.map(item => item.min_miners),
+        data: weeklyData.map(item => item.min_miners),
         borderColor: 'rgb(45, 147, 204, 60%)',
         borderWidth: 2,
         fill: false,
       },
       {
         label: 'Объем в кВ',
-        data: monthlyData.map(item => item.max_miners),
+        data: weeklyData.map(item => item.max_miners),
         borderColor: 'rgb(45, 147, 204, 60%)',
         borderWidth: 2,
         fill: false,
       },
       {
         label: 'Объем в кВ',
-        data: monthlyData.map(item => item.min_energy_producers),
+        data: weeklyData.map(item => item.min_energy_producers),
         borderColor: 'rgb(45, 147, 204, 60%)',
         borderWidth: 2,
         fill: false,
       },
       {
         label: 'Объем в кВ',
-        data: monthlyData.map(item => item.max_energy_producers),
+        data: weeklyData.map(item => item.max_energy_producers),
         borderColor: 'rgb(45, 147, 204, 60%)',
         borderWidth: 2,
         fill: false,
@@ -97,9 +97,9 @@ function WeeklyReportChart() {
             x: {
               type: 'time',
               time: {
-                unit: 'day',
+                unit: 'week',
                 displayFormats: {
-                  day: 'DD MMM YYYY',
+                  week: 'DD MMM YYYY',
                 },
               },
               title: {

@@ -79,7 +79,7 @@ function DashboardCard02() {
               </Link>
             </li>
             <li>
-              <Link className="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3" to="#0">
+              <Link className="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3" to="/weekly-reports">
                 Option 2
               </Link>
             </li>

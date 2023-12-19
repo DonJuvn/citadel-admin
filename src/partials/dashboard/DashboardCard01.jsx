@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
+import { tailwindConfig, hexToRGB } from '../../utils/Utils';
+
 function DashboardCard01() {
   const [monthlyData, setMonthlyData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -43,33 +45,69 @@ function DashboardCard01() {
       {
         label: 'Объем сделок',
         data: monthlyData.map(item => item.deal_volume),
-        borderColor: '#2368d6',
+        // borderColor: '#2368d6',
+        // borderWidth: 2,
+        // fill: false,
+        // borderRadius: 10, // Set border radius for this dataset
+
+        fill: true,
+        backgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.blue[500])}, 0.08)`,
+        borderColor: tailwindConfig().theme.colors.indigo[500],
         borderWidth: 2,
-        fill: false,
-        borderRadius: 10, // Set border radius for this dataset
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+          pointBackgroundColor: tailwindConfig().theme.colors.indigo[500],
+          pointHoverBackgroundColor: tailwindConfig().theme.colors.indigo[500],
+          pointBorderWidth: 0,
+          pointHoverBorderWidth: 0,          
+          clip: 20,
       },
       {
         label: 'Общая сумма',
         data: monthlyData.map(item => item.total_amount_kzt),
-        borderColor: 'rgb(45, 147, 204, 60%)',
+        // borderColor: 'rgb(45, 147, 204, 60%)',
+        // borderWidth: 2,
+        // fill: false,
+        // borderRadius: 10, // Set border radius for this dataset
+
+        borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
-        fill: false,
-        borderRadius: 10, // Set border radius for this dataset
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,
+        clip: 20,
       },
       {
         label: 'Объем в кВ',
         data: monthlyData.map(item => item.volume_kWh),
-        borderColor: 'rgb(45, 147, 204, 60%)',
+        // borderColor: 'rgb(45, 147, 204, 60%)',
+        // borderWidth: 2,
+        // fill: false,
+        // borderRadius: 10, // Set border radius for this dataset
+
+        borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
-        fill: false,
-        borderRadius: 10, // Set border radius for this dataset
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,
+        clip: 20,
       },
     ],
+   
   };
   
 
   return (
-    <div>
+    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 px-5 pt-5">
       <Line
         data={chartData}
         options={{
@@ -81,25 +119,38 @@ function DashboardCard01() {
                 displayFormats: {
                   month: 'MMM YYYY',
                 },
+                font:{
+                  size: 12,
+                  family: "'Gilroy', sans-serif",
+                  weight: 700,
+                }
               },
               title: {
                 display: true,
                 text: 'Month',
-                color: '#2368d6',
-                fontSize: 16 ,
+                color: '#000',
+                font:{
+                  size: 16,
+                  family: "'Gilroy', sans-serif",
+                  weight: 700,
+                }
               },
               grid: {
                 display: false, // Set to false to remove background gray lines
               },
-              // ticks: {
-              //   color: '#EABE5C', // Set text color for the x-axis labels
-              // },
+              ticks: {
+                // color: '#EABE5C', // Set text color for the x-axis labels
+                font:{
+                  family:"'Gilroy', sans-serif",
+                  size: 11,
+                }
+              },
             },
             y: {
               beginAtZero: true,
               title: {
                 display: true,
-                text: 'Объем сделок',
+                // text: 'Объем сделок',
                 // color: '#2368d6'
               },
               grid: {
@@ -107,12 +158,18 @@ function DashboardCard01() {
               },
               ticks: {
                 color: '#2368d6', // Set text color for the x-axis labels
+                font:{
+                  family:"'Gilroy', sans-serif",
+                  size: 11,
+                }
               },
+              
             },
+            
           },
         }}
-        width={1000}
-        height={800}
+        // width={1000}
+        // height={800}
       />
     </div>
   );
