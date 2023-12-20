@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';  // Import Link from react-router-dom
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import WelcomeBanner from '../partials/dashboard/WelcomeBanner';
-import DashboardCard01 from '../partials/dashboard/DashboardCard01';
+// import DashboardCard01 from '../partials/dashboard/DashboardCard01';
+import DashboardCard02 from '../partials/dashboard/DashboardCard02';
+import DashboardCard03 from '../partials/dashboard/DashboardCard03';
 import DashboardCard04 from '../partials/dashboard/DashboardCard04';
 import DashboardCard06 from '../partials/dashboard/DashboardCard06';
 import DashboardCard07 from '../partials/dashboard/DashboardCard07';
@@ -15,6 +17,8 @@ import DashboardCard11 from '../partials/dashboard/DashboardCard11';
 import DashboardCard12 from '../partials/dashboard/DashboardCard12';
 import DashboardCard13 from '../partials/dashboard/DashboardCard13';
 import Banner from '../partials/Banner';
+import SwitchButtons from '../partials/swithcers';
+import MonthlyReportChart from '../partials/dashboard/MonthlyReportChart';
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,50 +26,33 @@ function Dashboard() {
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      {/* <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} /> */}
 
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         {/* Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        {/* <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} /> */}
 
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             {/* Welcome banner */}
+            
             {/* <WelcomeBanner /> */}
 
             {/* Dashboard actions */}
             <div className="sm:flex sm:justify-between sm:items-center mb-8">
               {/* Left: Avatars */}
               {/* Replace DashboardAvatars with navigation links */}
-              <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-                {/* Navigation Link for Daily Report */}
-                <Link to="/daily-reports" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                  <span className="hidden xs:block ml-2">Daily Report</span>
-                </Link>
-
-                {/* Navigation Link for Weekly Report */}
-                <Link to="/weekly-reports" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                  <span className="hidden xs:block ml-2">Weekly Report</span>
-                </Link>
-
-                {/* Navigation Link for Monthly Report */}
-                <Link to="/monthly-reports" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                  <span className="hidden xs:block ml-2">Monthly Report</span>
-                </Link>
-
-                {/* Navigation Link for Quarterly Report */}
-                <Link to="/quarterly-reports" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                  <span className="hidden xs:block ml-2">Quarterly Report</span>
-                </Link>
-              </div>
+              <SwitchButtons/>
             </div>
 
             {/* Cards */}
             <div className="grid grid-cols-2 gap-6">
               {/* Other DashboardCard components */}
               {/* ... */}
-              <DashboardCard01 />
+              <MonthlyReportChart />
+              <DashboardCard02 />
+              <DashboardCard03 />
               {/* ... */}
               <DashboardCard04 />
               {/* ... */}

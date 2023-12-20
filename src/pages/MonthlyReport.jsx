@@ -5,14 +5,14 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import Banner from '../partials/Banner';
 
-import DashboardCard01 from '../partials/dashboard/DashboardCard01';
+import MonthlyReportChart from '../partials/dashboard/MonthlyReportChart';
 
 function MonthlyReport() {
   return (
     <div className="flex h-screen overflow-hidden">
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        <Header />
+        {/* <Header /> */}
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
           <div className="sm:flex sm:justify-between sm:items-center mb-8">
@@ -42,7 +42,7 @@ function MonthlyReport() {
             </div>
             <h1>Monthly Report Page</h1>
             {/* Add temporary content for the monthly report */}
-            <DashboardCard01/>
+            <MonthlyReportChart/>
           </div>
         </main>
         <Banner />

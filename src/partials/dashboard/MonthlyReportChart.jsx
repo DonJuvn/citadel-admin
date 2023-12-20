@@ -3,7 +3,7 @@ import { Line } from 'react-chartjs-2';
 
 import { tailwindConfig, hexToRGB } from '../../utils/Utils';
 
-function DashboardCard01() {
+function MonthlyReportChart() {
   const [monthlyData, setMonthlyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -40,7 +40,12 @@ function DashboardCard01() {
   }
 
   const chartData = {
-    labels: monthlyData.map(item => item.month),
+    // labels: monthlyData.map(item => item.month),
+    labels: monthlyData.map(item => {
+      const date = new Date(item.month);
+      return date.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
+    }),
+
     datasets: [
       {
         label: 'Объем сделок',
@@ -108,6 +113,7 @@ function DashboardCard01() {
 
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 px-5 pt-5">
+      {/* <h1 >Month</h1> */}
       <Line
         data={chartData}
         options={{
@@ -117,7 +123,7 @@ function DashboardCard01() {
               time: {
                 unit: 'month',
                 displayFormats: {
-                  month: 'MMM YYYY',
+                  month: 'MMMM YYYY',
                 },
                 font:{
                   size: 12,
@@ -127,7 +133,7 @@ function DashboardCard01() {
               },
               title: {
                 display: true,
-                text: 'Month',
+                // text: 'Month',
                 color: '#000',
                 font:{
                   size: 16,
@@ -147,7 +153,7 @@ function DashboardCard01() {
               },
             },
             y: {
-              beginAtZero: true,
+              beginAtZero: false,
               title: {
                 display: true,
                 // text: 'Объем сделок',
@@ -161,7 +167,8 @@ function DashboardCard01() {
                 font:{
                   family:"'Gilroy', sans-serif",
                   size: 11,
-                }
+                },
+                stepSize: 500,
               },
               
             },
@@ -175,4 +182,4 @@ function DashboardCard01() {
   );
 }
 
-export default DashboardCard01;
+export default MonthlyReportChart;
