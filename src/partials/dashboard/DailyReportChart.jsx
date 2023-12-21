@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
+import { tailwindConfig, hexToRGB } from '../../utils/Utils';
+
 function DailyReportChart() {
   const [monthlyData, setMonthlyData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,63 +40,123 @@ function DailyReportChart() {
   }
 
   const chartData = {
-    labels: monthlyData.map(item => item.date),
+    // labels: monthlyData.map(item => item.date),
+    labels: monthlyData.map(item => {
+      const date = new Date(item.date);
+      return date.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', year: 'numeric' });
+    }),
     datasets: [
       {
         label: 'Объем сделок',
         data: monthlyData.map(item => item.demand_volume),
-        borderColor: '#2368d6',
+        fill: true,
+        backgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.blue[500])}, 0.08)`,
+        borderColor: tailwindConfig().theme.colors.indigo[500],
         borderWidth: 2,
-        fill: false,
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        pointBackgroundColor: tailwindConfig().theme.colors.indigo[500],
+        pointHoverBackgroundColor: tailwindConfig().theme.colors.indigo[500],
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,          
+        clip: 20,
       },
       {
         label: 'Общая сумма',
         data: monthlyData.map(item => item.seller_offer),
-        borderColor: 'rgb(45, 147, 204, 60%)',
+        borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
-        fill: false,
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,
+        clip: 20,
       },
       {
         label: 'Объем в кВ',
         data: monthlyData.map(item => item.unsatisfied_demand),
-        borderColor: 'rgb(45, 147, 204, 60%)',
+        borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
-        fill: false,
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,
+        clip: 20,
       },
     ],
   };
 
   return (
-    <div className=''>
-      <Line
+    <div className="flex flex-col col-span-full sm:col-span-2 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 px-5 pt-5">
+      <Line 
         data={chartData}
+        width={500} // Adjust the width as needed
+        height={200} // Adjust the height as needed
         options={{
           scales: {
             x: {
-              type: 'time',
               time: {
-                unit: 'day',
+                unit: 'month',
                 displayFormats: {
-                  day: 'DD MMM',
+                  month: 'MMMM YYYY',
                 },
+                font:{
+                  size: 12,
+                  family: "'Gilroy', sans-serif",
+                  weight: 700,
+                }
               },
               title: {
                 display: true,
-                text: 'Day',
+                // text: 'Month',
+                color: '#000',
+                font:{
+                  size: 16,
+                  family: "'Gilroy', sans-serif",
+                  weight: 700,
+                }
+              },
+              grid: {
+                display: false, // Set to false to remove background gray lines
+              },
+              ticks: {
+                // color: '#EABE5C', // Set text color for the x-axis labels
+                font:{
+                  family:"'Gilroy', sans-serif",
+                  size: 11,
+                }
               },
             },
             y: {
-              beginAtZero: true,
+              beginAtZero: false,
               title: {
                 display: true,
-                text: '',
+                // text: 'Объем сделок',
+                // color: '#2368d6'
               },
+              grid: {
+                display: false, // Set to false to remove background gray lines
+              },
+              ticks: {
+                color: '#2368d6', // Set text color for the x-axis labels
+                font:{
+                  family:"'Gilroy', sans-serif",
+                  size: 11,
+                },
+                stepSize: 250,
+              },
+              
             },
+            
           },
         }}
-        
-        width={1000}
-        height={800}
       />
     </div>
   );

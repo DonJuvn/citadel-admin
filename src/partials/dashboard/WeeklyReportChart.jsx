@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
 import moment from 'moment';
+import { tailwindConfig, hexToRGB } from '../../utils/Utils';
 
 function WeeklyReportChart() {
   const [weeklyData, setWeeklyData] = useState([]);
@@ -46,74 +47,154 @@ function WeeklyReportChart() {
       {
         label: 'Объем сделок',
         data: weeklyData.map(item => item.total_volume_miners),
-        borderColor: '#2368d6',
+        fill: true,
+        backgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.blue[500])}, 0.08)`,
+        borderColor: tailwindConfig().theme.colors.indigo[500],
         borderWidth: 2,
-        fill: false,
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        pointBackgroundColor: tailwindConfig().theme.colors.indigo[500],
+        pointHoverBackgroundColor: tailwindConfig().theme.colors.indigo[500],
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,          
+        clip: 20,
       },
       {
         label: 'Общая сумма',
         data: weeklyData.map(item => item.total_volume_energy_producers),
-        borderColor: 'rgb(45, 147, 204, 60%)',
+        borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
-        fill: false,
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,
+        clip: 20,
       },
       {
         label: 'Объем в кВ',
         data: weeklyData.map(item => item.min_miners),
-        borderColor: 'rgb(45, 147, 204, 60%)',
+        borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
-        fill: false,
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,
+        clip: 20,
       },
       {
         label: 'Объем в кВ',
         data: weeklyData.map(item => item.max_miners),
-        borderColor: 'rgb(45, 147, 204, 60%)',
+        borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
-        fill: false,
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,
+        clip: 20,
       },
       {
         label: 'Объем в кВ',
         data: weeklyData.map(item => item.min_energy_producers),
-        borderColor: 'rgb(45, 147, 204, 60%)',
+        borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
-        fill: false,
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,
+        clip: 20,
       },
       {
         label: 'Объем в кВ',
         data: weeklyData.map(item => item.max_energy_producers),
-        borderColor: 'rgb(45, 147, 204, 60%)',
+        borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
-        fill: false,
+        tension: 0,
+        pointRadius: 0,
+        pointHoverRadius: 3,
+        pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,
+        clip: 20,
       },
     ],
   };
 
   return (
-    <div>
-      <Line
+    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 px-5 pt-5">
+      <Line 
         data={chartData}
+        width={500} // Adjust the width as needed
+        height={200} // Adjust the height as needed
         options={{
           scales: {
             x: {
-              type: 'time',
               time: {
-                unit: 'week',
+                unit: 'month',
                 displayFormats: {
-                  week: 'DD MMM YYYY',
+                  month: 'MMMM YYYY',
                 },
+                font:{
+                  size: 12,
+                  family: "'Gilroy', sans-serif",
+                  weight: 700,
+                }
               },
               title: {
                 display: true,
-                text: 'Week',
+                // text: 'Month',
+                color: '#000',
+                font:{
+                  size: 16,
+                  family: "'Gilroy', sans-serif",
+                  weight: 700,
+                }
+              },
+              grid: {
+                display: false, // Set to false to remove background gray lines
+              },
+              ticks: {
+                // color: '#EABE5C', // Set text color for the x-axis labels
+                font:{
+                  family:"'Gilroy', sans-serif",
+                  size: 11,
+                }
               },
             },
             y: {
-              beginAtZero: true,
+              beginAtZero: false,
               title: {
                 display: true,
-                text: '',
+                // text: 'Объем сделок',
+                // color: '#2368d6'
               },
+              grid: {
+                display: false, // Set to false to remove background gray lines
+              },
+              ticks: {
+                color: '#2368d6', // Set text color for the x-axis labels
+                font:{
+                  family:"'Gilroy', sans-serif",
+                  size: 11,
+                },
+                stepSize: 250,
+              },
+              
             },
+            
           },
         }}
       />

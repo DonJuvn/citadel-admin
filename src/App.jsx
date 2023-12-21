@@ -25,7 +25,7 @@ function App() {
         <Route exact path="/" element={<Dashboard />} />
         <Route path="/daily-reports" element={<DailyReport />} /> {/* Route for DailyReport */}
         <Route path="/weekly-reports" element={<WeeklyReport />} /> {/* Route for WeeklyReport */}
-        <Route path="/monthly-reports" element={<Dashboard />} /> {/* Route for MonthlyReport */}
+        <Route path="/monthly-reports" element={<MonthlyReport />} /> {/* Route for MonthlyReport */}
         <Route path="/quarterly-reports" element={<QuarterlyReport />} /> {/* Route for QuarterlyReport */}
       </Routes>
     </>

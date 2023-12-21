@@ -50,11 +50,6 @@ function MonthlyReportChart() {
       {
         label: 'Объем сделок',
         data: monthlyData.map(item => item.deal_volume),
-        // borderColor: '#2368d6',
-        // borderWidth: 2,
-        // fill: false,
-        // borderRadius: 10, // Set border radius for this dataset
-
         fill: true,
         backgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.blue[500])}, 0.08)`,
         borderColor: tailwindConfig().theme.colors.indigo[500],
@@ -62,20 +57,15 @@ function MonthlyReportChart() {
         tension: 0,
         pointRadius: 0,
         pointHoverRadius: 3,
-          pointBackgroundColor: tailwindConfig().theme.colors.indigo[500],
-          pointHoverBackgroundColor: tailwindConfig().theme.colors.indigo[500],
-          pointBorderWidth: 0,
-          pointHoverBorderWidth: 0,          
-          clip: 20,
+        pointBackgroundColor: tailwindConfig().theme.colors.indigo[500],
+        pointHoverBackgroundColor: tailwindConfig().theme.colors.indigo[500],
+        pointBorderWidth: 0,
+        pointHoverBorderWidth: 0,          
+        clip: 20,
       },
       {
         label: 'Общая сумма',
         data: monthlyData.map(item => item.total_amount_kzt),
-        // borderColor: 'rgb(45, 147, 204, 60%)',
-        // borderWidth: 2,
-        // fill: false,
-        // borderRadius: 10, // Set border radius for this dataset
-
         borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
         tension: 0,
@@ -90,11 +80,6 @@ function MonthlyReportChart() {
       {
         label: 'Объем в кВ',
         data: monthlyData.map(item => item.volume_kWh),
-        // borderColor: 'rgb(45, 147, 204, 60%)',
-        // borderWidth: 2,
-        // fill: false,
-        // borderRadius: 10, // Set border radius for this dataset
-
         borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
         tension: 0,
@@ -113,13 +98,15 @@ function MonthlyReportChart() {
 
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 px-5 pt-5">
-      {/* <h1 >Month</h1> */}
-      <Line
+      <Line 
         data={chartData}
+        width={500} // Adjust the width as needed
+        height={200} // Adjust the height as needed
+        // style={{padding:"15px"}}
         options={{
           scales: {
             x: {
-              // type: 'time',
+              display:true,
               time: {
                 unit: 'month',
                 displayFormats: {
@@ -168,15 +155,13 @@ function MonthlyReportChart() {
                   family:"'Gilroy', sans-serif",
                   size: 11,
                 },
-                stepSize: 500,
+                stepSize: 250,
               },
-              
+              display:false,
             },
             
           },
         }}
-        // width={1000}
-        // height={800}
       />
     </div>
   );

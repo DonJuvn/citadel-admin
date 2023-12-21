@@ -19,6 +19,9 @@ import DashboardCard13 from '../partials/dashboard/DashboardCard13';
 import Banner from '../partials/Banner';
 import SwitchButtons from '../partials/swithcers';
 import MonthlyReportChart from '../partials/dashboard/MonthlyReportChart';
+import DailyReportChart from '../partials/dashboard/DailyReportChart';
+import WeeklyReportChart from '../partials/dashboard/WeeklyReportChart';
+import QuarterlyReportChart from '../partials/dashboard/QuarterlyReportChart';
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -47,10 +50,13 @@ function Dashboard() {
             </div>
 
             {/* Cards */}
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-8 gap-4">
               {/* Other DashboardCard components */}
               {/* ... */}
               <MonthlyReportChart />
+              <DailyReportChart />
+              <WeeklyReportChart />
+              <QuarterlyReportChart />
               <DashboardCard02 />
               <DashboardCard03 />
               {/* ... */}
