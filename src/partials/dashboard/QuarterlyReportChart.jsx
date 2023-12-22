@@ -322,7 +322,7 @@ function QuarterlyReportChart() {
         <select className='dropdown' value={selectedYear} onChange={handleYearChange}>
           {monthlyData.map(item => (
             <option className='option' key={item.year} value={item.year}>
-              {item.year}
+              {item.year.year}
             </option>
           ))}
         </select>
