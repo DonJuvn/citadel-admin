@@ -146,6 +146,7 @@ import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 
 import { tailwindConfig, hexToRGB } from '../../utils/Utils';
+import '../../css/App.css';
 
 function QuarterlyReportChart() {
   const [monthlyData, setMonthlyData] = useState([]);
@@ -317,10 +318,10 @@ function QuarterlyReportChart() {
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 px-5 pt-5">
       <div>
-        <label>Select Year:</label>
-        <select value={selectedYear} onChange={handleYearChange}>
+        <label className='quarterly-txt'>Select Year:</label>
+        <select className='dropdown' value={selectedYear} onChange={handleYearChange}>
           {monthlyData.map(item => (
-            <option key={item.year} value={item.year}>
+            <option className='option' key={item.year} value={item.year}>
               {item.year}
             </option>
           ))}
